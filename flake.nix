@@ -36,6 +36,7 @@
 				rustPlatform.buildRustPackage {
 					pname = "rnote";
 					inherit version;
+					prefix = placeholder "out";
 
 					src = lib.cleanSource ./.;
 
@@ -110,6 +111,7 @@
 					'';
 
 					postInstall = ''
+						gappsWrapperArgs+=(--prefix XDG_DATA_DIRS : "$out/share")
 						glib-compile-schemas "$out/share/glib-2.0/schemas"
 						update-mime-database "$out/share/mime"
 					'';
